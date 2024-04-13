@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 import { getScreenshotURL } from "@/lib/screenshot";
+import { siteConfig } from "@/config/site";
 
 /**
  * @name Screenshot Template
@@ -10,7 +11,7 @@ export function GET() {
   const width = 1200;
   const height = 630;
   const screenshot = getScreenshotURL({
-    url: "https://sub.new",
+    url: `${siteConfig.url}`,
     width: 1200 - 80 - 80,
     height: 630 - 80,
   });
