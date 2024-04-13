@@ -22,5 +22,5 @@ export const siteConfig: SiteConfig = {
   links: {
     github: "https://github.com/EmailThingLabs/emailthing",
   },
-  ogImage: `${env.NEXT_PUBLIC_APP_URL}/og.jpg`,
+  ogImage: `${env.NEXT_PUBLIC_APP_URL}/api/og/screenshot?url=${env.NEXT_PUBLIC_APP_URL}`,
 };
