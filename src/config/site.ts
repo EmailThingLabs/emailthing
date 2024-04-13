@@ -3,9 +3,9 @@ import type { SiteConfig } from "@/types";
 import { env } from "@/env.js";
 
 export const siteConfig: SiteConfig = {
-  name: "EmailThing",
+  name: "emailthing.io",
   author: "ivryb, lewisbuildsai",
-  description: "Email Thing",
+  description: "Open source email, made easy.",
   keywords: [
     "Next.js",
     "React",

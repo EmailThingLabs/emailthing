@@ -8,5 +8,6 @@ export default {
     url: env.DATABASE_URL,
     authToken: env.DATABASE_AUTH_TOKEN,
   },
+  out: "./drizzle",
   tablesFilter: ["emailthing_*"],
 } satisfies Config;
