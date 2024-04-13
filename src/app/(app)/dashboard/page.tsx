@@ -16,15 +16,8 @@ export default async function Dashboard() {
   }
 
   return (
-    <>
-      <PageHeader>
-        <Icons.logo className="h-16 w-16" />
-        <PageHeaderHeading>{siteConfig.name}</PageHeaderHeading>
-        <PageHeaderDescription>{siteConfig.description}</PageHeaderDescription>
-        <PageActions>
-          Hi, {session?.user?.name}!{" "}
-          </PageActions>
-      </PageHeader>
-    </>
-  );
+    <div>
+      Hi
+    </div>
+  )
 }
