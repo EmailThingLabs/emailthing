@@ -11,7 +11,7 @@ export function GET() {
   const width = 1200;
   const height = 630;
   const screenshot = getScreenshotURL({
-    url: `${siteConfig.url}`,
+    url: `${siteConfig.url.base}`,
     width: 1200 - 80 - 80,
     height: 630 - 80,
   });
