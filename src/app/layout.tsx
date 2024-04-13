@@ -78,7 +78,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           attribute="class"
           defaultTheme="light"
           themes={["light", "dark"]}
-          enableSystem={false}
           disableTransitionOnChange
         >
           <div vaul-drawer-wrapper="">
