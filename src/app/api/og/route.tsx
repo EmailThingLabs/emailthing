@@ -2,8 +2,6 @@
 import { ImageResponse } from "next/og";
 import { getScreenshotURL } from "@/lib/screenshot";
 
-export const runtime = "edge";
-
 /**
  * @name Screenshot Template
  * @description Take a screenshot of a website
