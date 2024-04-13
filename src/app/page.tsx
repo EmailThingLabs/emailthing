@@ -12,6 +12,10 @@ import {
 export default async function Home() {
   const session = await getServerAuthSession();
 
+  if (session) {
+    console.log(session);
+  }
+
   return (
     <>
       <PageHeader>
