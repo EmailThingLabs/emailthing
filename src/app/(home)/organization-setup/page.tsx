@@ -28,7 +28,7 @@ export default async function Onboarding() {
         Setup Organization
       </h1>
       <h2 className="pb-8 text-center text-lg text-muted-foreground md:pb-16">
-        Welcome! First, let's setup your organization.
+        Welcome! First, let&apos;s setup your organization.
       </h2>
       <div className="w-full self-center px-8 md:w-1/3 md:px-0">
         <OnboardingForm />
