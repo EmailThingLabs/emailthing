@@ -69,10 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={cn(
-          "bg-background min-h-screen font-sans antialiased",
-          inter.className,
-        )}
+        className={cn("bg-background font-sans antialiased", inter.className)}
       >
         <ThemeProvider
           attribute="class"
@@ -80,14 +77,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           themes={["light", "dark"]}
           disableTransitionOnChange
         >
-          <div vaul-drawer-wrapper="">
-            <div className="bg-background relative flex min-h-screen flex-col">
+          <TRPCReactProvider>
+            <div className="flex min-h-screen flex-col">
               <SiteHeader />
-              <TRPCReactProvider>
-                <main className="mx-auto mt-8 flex">{children}</main>
-              </TRPCReactProvider>
+              {children}
             </div>
-          </div>
+          </TRPCReactProvider>
         </ThemeProvider>
       </body>
     </html>
