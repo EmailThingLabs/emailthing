@@ -17,15 +17,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 
 const formSchema = z.object({
   name: z.string(),
+  domain: z.string(),
 });
 
 export function OnboardingForm() {
   const { toast } = useToast();
-  const { data } = api.org.isOrgSetup.useQuery();
   const { mutate, isSuccess, isError, isPending } =
     api.org.setupOrg.useMutation();
 
@@ -54,7 +55,7 @@ export function OnboardingForm() {
           "There was an error creating your organization. Please try again.",
       });
     }
-  }, [isSuccess, isError, data]);
+  }, [isSuccess, isError]);
 
   return (
     <div>
@@ -72,6 +73,23 @@ export function OnboardingForm() {
                 <FormControl>
                   <Input placeholder="Ex. Acme Inc." {...field} type="text" />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="domain"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email domain name</FormLabel>
+                <FormControl>
+                  <Input placeholder="mail.acme.com" {...field} type="text" />
+                </FormControl>
+                <FormDescription>
+                  Important: this should be a domain you own, e.g.
+                  mail.acme.com.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

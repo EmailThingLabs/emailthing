@@ -10,10 +10,14 @@ export const settingsRouter = createTRPCRouter({
       throw new Error("User not found or user ID missing in session context");
     }
 
+    if (!ctx.session.user.orgId) {
+      throw new Error("Organization ID missing in session context");
+    }
+
     const setup = await ctx.db.query.organizations
       .findFirst({
         columns: { smtp_username: true, smtp_password: true, region: true },
-        where: eq(users.id, ctx.session.user.id),
+        where: eq(organizations.id, ctx.session.user.orgId),
       })
       .execute();
 
@@ -47,6 +51,10 @@ export const settingsRouter = createTRPCRouter({
         throw new Error("User not found or user ID missing in session context");
       }
 
+      if (!ctx.session.user.orgId) {
+        throw new Error("Organization ID missing in session context");
+      }
+
       const transporter = nodemailer.createTransport({
         host: `email-smtp.${input.region}.amazonaws.com`,
         port: 465,
@@ -67,8 +75,8 @@ export const settingsRouter = createTRPCRouter({
             smtp_username: input.smtp_username,
             smtp_password: input.smtp_password,
           })
-          .where(eq(users.id, ctx.session.user.id))
-          .returning({ updatedId: users.id });
+          .where(eq(organizations.id, ctx.session.user.orgId))
+          .execute();
 
         return {
           status: "success",

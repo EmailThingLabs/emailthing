@@ -5,10 +5,10 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import { providers } from '@/config/providers.config';
-
+import { providers } from "@/config/providers.config";
+import { eq } from "drizzle-orm";
 import { db } from "@/server/db";
-import { createTable } from "@/server/db/schema";
+import { createTable, users } from "@/server/db/schema";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -20,6 +20,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      orgId: string | null;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -38,13 +39,18 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({ session, user }) => {
+      const organizationId = await orgId(user.id);
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+          orgId: organizationId,
+        },
+      };
+    },
   },
   adapter: DrizzleAdapter(db, createTable) as Adapter,
   providers: providers,
@@ -53,6 +59,17 @@ export const authOptions: NextAuthOptions = {
     signOut: "/auth/logout",
   },
 };
+
+async function orgId(userId: string) {
+  const user = await db.query.users
+    .findFirst({
+      columns: { organizationId: true },
+      where: eq(users.id, userId),
+    })
+    .execute();
+
+  return user?.organizationId;
+}
 
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
