@@ -3,6 +3,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { api } from "@/trpc/server";
+import { SetupForm } from "./components/Setup";
 
 export default async function Setup() {
   const session = await getServerAuthSession();
@@ -17,13 +18,5 @@ export default async function Setup() {
     return redirect("/dashboard");
   }
 
-  return (
-    <div>
-      <h1>Welcome to the dashboard, {session.user.name}!</h1>
-      <p>
-        You are now setting up. This is a placeholder page for the onboarding
-        process.
-      </p>
-    </div>
-  );
+  return <SetupForm />;
 }
