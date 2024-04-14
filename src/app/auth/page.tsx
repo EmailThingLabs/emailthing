@@ -1,9 +1,9 @@
-import Link from "next/link"
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Icons } from "@/components/ui/icons";
 import { getServerAuthSession } from "@/server/auth";
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -13,10 +13,6 @@ import {
 
 export default async function Home() {
   const session = await getServerAuthSession();
-
-  if (session) {
-    console.log(session);
-  }
 
   return (
     <>

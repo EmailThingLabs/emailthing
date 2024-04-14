@@ -28,7 +28,7 @@ export function LogoutForm() {
     }
   };
   return (
-    <main className="mx-auto">
+    <main className="mx-auto mt-8">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl">{siteConfig.name}</CardTitle>

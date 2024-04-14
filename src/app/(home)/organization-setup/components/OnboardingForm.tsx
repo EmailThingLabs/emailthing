@@ -25,7 +25,7 @@ const formSchema = z.object({
 
 export function OnboardingForm() {
   const { toast } = useToast();
-  const { data } = api.settings.isSetup.useQuery();
+  const { data } = api.org.isOrgSetup.useQuery();
   const { mutate, isSuccess, isError, isPending } =
     api.org.setupOrg.useMutation();
 
@@ -38,15 +38,13 @@ export function OnboardingForm() {
   }
 
   useEffect(() => {
-    if (!data?.isSetup) {
-      redirect("/dashboard");
-    }
-
     if (isSuccess) {
       toast({
         title: "Success 🎉",
         description: "Your organization has been successfully set up.",
       });
+
+      redirect("/dashboard");
     }
 
     if (isError) {
