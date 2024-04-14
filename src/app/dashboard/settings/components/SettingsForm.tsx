@@ -177,7 +177,7 @@ export function SettingsForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isPending}>
+              <Button type="submit" disabled={isPending} variant="outline">
                 {setup ? "Update Credentials" : "Verify Credentials"}
               </Button>
             </form>
