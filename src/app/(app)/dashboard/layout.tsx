@@ -70,7 +70,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           inter.className,
         )}
       >
@@ -81,10 +81,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <div vaul-drawer-wrapper="">
-            <div className="bg-background relative flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col bg-background">
               <SiteHeader />
               <TRPCReactProvider>
-                <main className="mx-auto mt-8 flex">{children}</main>
+                <main className="mt-8 flex">{children}</main>
               </TRPCReactProvider>
             </div>
           </div>
