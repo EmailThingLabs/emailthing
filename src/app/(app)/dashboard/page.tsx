@@ -1,23 +1,19 @@
-import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/ui/icons";
 import { getServerAuthSession } from "@/server/auth";
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderHeading,
-  PageActions,
-} from "@/components/nav/page-header";
+import { redirect } from "next/navigation";
+import { api } from "@/trpc/server";
 
 export default async function Dashboard() {
   const session = await getServerAuthSession();
 
-  if (session) {
-    console.log(session);
+  if (!session) {
+    redirect("/auth/login");
   }
 
-  return (
-    <div>
-      Hi
-    </div>
-  )
+  const isSetup = await api.user.isSetup();
+
+  if (isSetup?.onboarded === false) {
+    redirect("/dashboard/setup");
+  }
+
+  return <></>;
 }

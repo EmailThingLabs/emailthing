@@ -18,6 +18,10 @@ export const users = createTable("user", {
     mode: "timestamp",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: text("image", { length: 255 }),
+  onboarded: int("onboarded", { mode: "boolean" }).default(false),
+  domain: text("domain", { length: 255 }),
+  smtp_username: text("smtp_username", { length: 255 }),
+  smtp_password: text("smtp_password", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -48,7 +52,7 @@ export const accounts = createTable(
       columns: [account.provider, account.providerAccountId],
     }),
     userIdIdx: index("account_userId_idx").on(account.userId),
-  })
+  }),
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -66,7 +70,7 @@ export const sessions = createTable(
   },
   (session) => ({
     userIdIdx: index("session_userId_idx").on(session.userId),
-  })
+  }),
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
@@ -82,5 +86,5 @@ export const verificationTokens = createTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );

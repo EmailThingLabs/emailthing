@@ -1,11 +1,14 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
-
+import { sesRouter } from "@/server/api/handlers/ses";
+import { userRouter } from "@/server/api/handlers/user";
 /**
  * This is the primary router for your server.
  *
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  user: userRouter,
+  ses: sesRouter,
 });
 
 // export type definition of API
