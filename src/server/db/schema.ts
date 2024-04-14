@@ -18,8 +18,8 @@ export const users = createTable("user", {
     mode: "timestamp",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: text("image", { length: 255 }),
-  onboarded: int("onboarded", { mode: "boolean" }).default(false),
   domain: text("domain", { length: 255 }),
+  region: text("region", { length: 255 }),
   smtp_username: text("smtp_username", { length: 255 }),
   smtp_password: text("smtp_password", { length: 255 }),
 });
