@@ -75,7 +75,7 @@ export function SetupForm() {
                   <FormItem>
                     <FormLabel>SMTP Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="" {...field} />
+                      <Input placeholder="username" {...field} type="text" />
                     </FormControl>
                     <FormDescription>
                       This is the username for the SMTP server.
@@ -91,7 +91,11 @@ export function SetupForm() {
                   <FormItem>
                     <FormLabel>SMTP Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="" {...field} />
+                      <Input
+                        placeholder="password"
+                        {...field}
+                        type="password"
+                      />
                     </FormControl>
                     <FormDescription>
                       This is the password for the SMTP server.
