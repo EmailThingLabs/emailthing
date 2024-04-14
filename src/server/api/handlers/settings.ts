@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { users } from "@/server/db/schema";
+import { organizations, users } from "@/server/db/schema";
 import nodemailer from "nodemailer";
 
 export const settingsRouter = createTRPCRouter({
@@ -10,7 +10,7 @@ export const settingsRouter = createTRPCRouter({
       throw new Error("User not found or user ID missing in session context");
     }
 
-    const setup = await ctx.db.query.users
+    const setup = await ctx.db.query.organizations
       .findFirst({
         columns: { smtp_username: true, smtp_password: true, region: true },
         where: eq(users.id, ctx.session.user.id),
@@ -61,7 +61,7 @@ export const settingsRouter = createTRPCRouter({
         await transporter.verify();
 
         await ctx.db
-          .update(users)
+          .update(organizations)
           .set({
             region: input.region,
             smtp_username: input.smtp_username,

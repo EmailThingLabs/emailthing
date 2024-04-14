@@ -10,22 +10,34 @@ import { type AdapterAccount } from "next-auth/adapters";
 
 export const createTable = sqliteTableCreator((name) => `emailthing_${name}`);
 
+export const organizations = createTable("organization", {
+  id: text("id", { length: 255 }).notNull().primaryKey(),
+  name: text("name", { length: 255 }).notNull(),
+  domain: text("domain", { length: 255 }),
+  smtp_username: text("smtp_username", { length: 255 }),
+  smtp_password: text("smtp_password", { length: 255 }),
+  region: text("region", { length: 255 }),
+});
+
 export const users = createTable("user", {
   id: text("id", { length: 255 }).notNull().primaryKey(),
+  organizationId: text("organizationId", { length: 255 }).references(
+    () => organizations.id,
+  ),
   name: text("name", { length: 255 }),
   email: text("email", { length: 255 }).notNull(),
   emailVerified: int("emailVerified", {
     mode: "timestamp",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: text("image", { length: 255 }),
-  domain: text("domain", { length: 255 }),
-  region: text("region", { length: 255 }),
-  smtp_username: text("smtp_username", { length: 255 }),
-  smtp_password: text("smtp_password", { length: 255 }),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
+export const usersRelations = relations(users, ({ one }) => ({
+  accounts: one(accounts),
+  organization: one(organizations, {
+    fields: [users.organizationId],
+    references: [organizations.id],
+  }),
 }));
 
 export const accounts = createTable(

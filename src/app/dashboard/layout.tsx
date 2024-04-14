@@ -1,7 +1,8 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
+import { api } from "@/trpc/server";
 
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebar";
 
 export default async function DashboardLayout({
   children,

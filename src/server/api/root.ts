@@ -1,4 +1,5 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { orgRouter } from "@/server/api/handlers/org";
 import { sesRouter } from "@/server/api/handlers/ses";
 import { settingsRouter } from "@/server/api/handlers/settings";
 /**
@@ -7,8 +8,9 @@ import { settingsRouter } from "@/server/api/handlers/settings";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  settings: settingsRouter,
+  org: orgRouter,
   ses: sesRouter,
+  settings: settingsRouter,
 });
 
 // export type definition of API

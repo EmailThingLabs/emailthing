@@ -82,7 +82,7 @@ export function SettingsForm() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Simple Email Service Setup</CardTitle>
+          <CardTitle className="text-xl">AWS SES Setup</CardTitle>
           <CardDescription>
             Enter your AWS SES credentials to setup email sending.
           </CardDescription>
@@ -185,12 +185,12 @@ export function SettingsForm() {
         </CardContent>
         <CardFooter>
           {setup ? (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               You have already setup AWS SES. You can update your credentials
               above.
             </p>
           ) : (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               You have not setup AWS SES yet. Please enter your credentials
               above.
             </p>
