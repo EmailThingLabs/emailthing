@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/nav/site-header";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/nav/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <SiteHeader />
               {children}
             </div>
+            <Toaster />
           </TRPCReactProvider>
         </ThemeProvider>
       </body>
