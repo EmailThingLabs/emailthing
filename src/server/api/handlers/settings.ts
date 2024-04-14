@@ -4,7 +4,7 @@ import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { users } from "@/server/db/schema";
 import nodemailer from "nodemailer";
 
-export const userRouter = createTRPCRouter({
+export const settingsRouter = createTRPCRouter({
   isSetup: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.session.user || !ctx.session.user.id) {
       throw new Error("User not found or user ID missing in session context");
@@ -12,18 +12,32 @@ export const userRouter = createTRPCRouter({
 
     const setup = await ctx.db.query.users
       .findFirst({
-        columns: { onboarded: true },
+        columns: { smtp_username: true, smtp_password: true, region: true },
         where: eq(users.id, ctx.session.user.id),
       })
       .execute();
 
-    return setup;
+    if (
+      setup?.region !== null &&
+      setup?.smtp_username !== null &&
+      setup?.smtp_password !== null
+    ) {
+      return {
+        isSetup: true,
+        region: setup?.region,
+        smtp_username: setup?.smtp_username,
+      };
+    } else {
+      return {
+        isSetup: false,
+      };
+    }
   }),
 
   verifySetup: protectedProcedure
     .input(
       z.object({
-        domain: z.string(),
+        region: z.string(),
         smtp_username: z.string(),
         smtp_password: z.string(),
       }),
@@ -34,7 +48,7 @@ export const userRouter = createTRPCRouter({
       }
 
       const transporter = nodemailer.createTransport({
-        host: "email-smtp.us-west-1.amazonaws.com",
+        host: `email-smtp.${input.region}.amazonaws.com`,
         port: 465,
         secure: true,
         auth: {
@@ -49,8 +63,7 @@ export const userRouter = createTRPCRouter({
         await ctx.db
           .update(users)
           .set({
-            onboarded: true,
-            domain: input.domain,
+            region: input.region,
             smtp_username: input.smtp_username,
             smtp_password: input.smtp_password,
           })
