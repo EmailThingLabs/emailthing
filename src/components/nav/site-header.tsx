@@ -21,7 +21,7 @@ export async function SiteHeader() {
   const name = session?.user.name ?? "";
 
   return (
-    <header className="border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
@@ -37,7 +37,9 @@ export async function SiteHeader() {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/dashboard/settings">Settings</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
                       href={siteConfig.links.github}

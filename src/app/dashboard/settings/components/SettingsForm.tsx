@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { CircleCheck } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -25,7 +25,6 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import {
   Select,
@@ -80,7 +79,10 @@ export function SettingsForm() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">AWS SES Setup</CardTitle>
+          <CardTitle className="flex flex-row items-center text-xl">
+            AWS Simple Email Service Configuration{" "}
+            {setup && <CircleCheck className="ml-2 h-4 w-4 text-green-500" />}
+          </CardTitle>
           <CardDescription>
             Enter your AWS SES credentials to setup email sending.
           </CardDescription>
@@ -175,25 +177,14 @@ export function SettingsForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isPending} variant="outline">
-                {setup ? "Update Credentials" : "Verify Credentials"}
-              </Button>
+              <div className="flex flex-row items-center space-x-4">
+                <Button type="submit" disabled={isPending} variant="outline">
+                  {setup ? "Update Credentials" : "Verify Credentials"}
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
-          {setup ? (
-            <p className="text-sm text-muted-foreground">
-              You have already setup AWS SES. You can update your credentials
-              above.
-            </p>
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              You have not setup AWS SES yet. Please enter your credentials
-              above.
-            </p>
-          )}
-        </CardFooter>
       </Card>
     </div>
   );
