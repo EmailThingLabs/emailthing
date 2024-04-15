@@ -2,7 +2,7 @@
 import * as React from "react";
 
 import { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { z } from "zod";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +42,6 @@ const formSchema = z.object({
 });
 
 export function SettingsForm() {
-  const { toast } = useToast();
   const [setup, isSetup] = useState(false);
   const { data, isLoading } = api.settings.isSetup.useQuery();
   const { mutate, isSuccess, isError, isPending } =
@@ -62,16 +61,15 @@ export function SettingsForm() {
     }
 
     if (isSuccess) {
-      toast({
-        title: "Success 🎉",
-        description: "AWS SES has been setup successfully.",
+      toast.success("Settings saved", {
+        description: "Your AWS SES credentials have been saved.",
       });
     }
 
     if (isError) {
-      toast({
-        title: "Error ⛔",
-        description: "There was an error setting up AWS SES. Please try again.",
+      toast.error("Error", {
+        description:
+          "There was an error saving your settings. Please try again.",
       });
     }
   }, [isSuccess, isError, data]);

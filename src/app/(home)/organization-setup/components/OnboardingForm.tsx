@@ -2,7 +2,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,6 @@ const formSchema = z.object({
 });
 
 export function OnboardingForm() {
-  const { toast } = useToast();
   const [isOrgSetup, setIsOrgSetup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { mutate, isSuccess, isError, isPending } =
@@ -45,16 +44,14 @@ export function OnboardingForm() {
     if (isSuccess) {
       setIsLoading(true);
       setIsOrgSetup(true);
-      toast({
-        title: "Success 🎉",
+      toast.success("Success 🎉", {
         description: "Your organization has been successfully set up.",
       });
     }
 
     if (isError) {
       setIsLoading(false);
-      toast({
-        title: "Error ⛔",
+      toast.error("Error", {
         description:
           "There was an error creating your organization. Please try again.",
       });
