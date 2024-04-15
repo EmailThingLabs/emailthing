@@ -17,7 +17,6 @@ export default async function Home() {
   return (
     <>
       <PageHeader>
-        <Icons.logo className="h-16 w-16" />
         <PageHeaderHeading>{siteConfig.name}</PageHeaderHeading>
         <PageHeaderDescription>{siteConfig.description}</PageHeaderDescription>
         <PageActions>
