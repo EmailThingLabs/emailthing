@@ -8,6 +8,9 @@ export default async function Dashboard() {
     redirect("/organization-setup");
   }
 
-  redirect("/dashboard/settings");
-  return <></>;
+  return (
+    <div>
+      <h1>Home</h1>
+    </div>
+  );
 }

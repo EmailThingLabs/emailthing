@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AtSign, Users, Send, Settings } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { AtSign, Users, Send, Settings, Home } from "lucide-react";
 
 import { usePathname } from "next/navigation";
 
@@ -17,6 +16,13 @@ export default function Sidebar() {
 
   return (
     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+      <Link
+        href="/dashboard"
+        className={pathname === "/dashboard" ? activeLinkClass : linkClass}
+      >
+        <Home className="h-4 w-4" />
+        Home{" "}
+      </Link>
       <Link
         href="/dashboard/domains"
         className={
@@ -43,9 +49,6 @@ export default function Sidebar() {
       >
         <Send className="h-4 w-4" />
         Campaign
-        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-          6
-        </Badge>
       </Link>
       <Link
         href="/dashboard/settings"
@@ -54,7 +57,7 @@ export default function Sidebar() {
         }
       >
         <Settings className="h-4 w-4" />
-        Settings
+        Organization Settings
       </Link>
     </nav>
   );

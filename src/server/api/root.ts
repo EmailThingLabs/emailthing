@@ -1,6 +1,7 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { orgRouter } from "@/server/api/handlers/org";
 import { sesRouter } from "@/server/api/handlers/ses";
+import { domainRouter } from "@/server/api/handlers/domains";
 import { settingsRouter } from "@/server/api/handlers/settings";
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { settingsRouter } from "@/server/api/handlers/settings";
  */
 export const appRouter = createTRPCRouter({
   org: orgRouter,
+  domain: domainRouter,
   ses: sesRouter,
   settings: settingsRouter,
 });

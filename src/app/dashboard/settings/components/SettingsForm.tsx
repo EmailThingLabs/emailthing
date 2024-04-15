@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -41,6 +41,7 @@ const formSchema = z.object({
 });
 
 export function SettingsForm() {
+  const router = useRouter();
   const [setup, isSetup] = useState(false);
   const { data, isLoading } = api.settings.isSetup.useQuery();
   const { mutate, isSuccess, isError, isPending } =
