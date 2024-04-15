@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { AddDomainForm } from "./components/AddDomainForm";
 
 export default async function AddDomain() {
-  const isSetup = api.settings.isSetup();
+  const isSetup = await api.settings.isSetup();
 
   if (!isSetup) {
     redirect("/dashboard/settings");
