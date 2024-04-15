@@ -19,6 +19,20 @@ export const organizations = createTable("organization", {
   region: text("region", { length: 255 }),
 });
 
+export const domains = createTable("domains", {
+  id: text("id", { length: 255 }).notNull().primaryKey(),
+  domain: text("domain", { length: 255 }).notNull(),
+  organizationId: text("organizationId", { length: 255 }).notNull(),
+  status: text("status", { length: 255 }).notNull(),
+});
+
+export const domainsRelations = relations(domains, ({ one }) => ({
+  organization: one(organizations, {
+    fields: [domains.organizationId],
+    references: [organizations.id],
+  }),
+}));
+
 export const users = createTable("user", {
   id: text("id", { length: 255 }).notNull().primaryKey(),
   organizationId: text("organizationId", { length: 255 }).references(

@@ -22,7 +22,7 @@ export const orgRouter = createTRPCRouter({
   }),
 
   setupOrg: protectedProcedure
-    .input(z.object({ name: z.string(), domain: z.string() }))
+    .input(z.object({ name: z.string() }))
     .mutation(async ({ ctx, input }) => {
       if (!ctx.session.user || !ctx.session.user.id) {
         throw new Error("User not found or user ID missing in session context");
@@ -34,7 +34,6 @@ export const orgRouter = createTRPCRouter({
           .values({
             id: uuidv4(),
             name: input.name,
-            domain: input.domain,
           })
           .returning()
           .execute();
