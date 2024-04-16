@@ -53,7 +53,7 @@ export function AddDomainForm() {
       toast.success("Domain added", {
         description: "New domain successfully added.",
       });
-      router.push("/dashboard/domains");
+      router.push("/dashboard/settings/domains");
     }
 
     if (isError) {
@@ -64,12 +64,10 @@ export function AddDomainForm() {
   }, [created, isError]);
 
   return (
-    <div>
+    <div className="container">
       <Card>
         <CardHeader>
-          <CardTitle className="flex flex-row items-center text-xl">
-            Domain Setup
-          </CardTitle>
+          <CardTitle>Domain Setup</CardTitle>
           <CardDescription>
             Add a domain to your account to start sending emails.
           </CardDescription>
@@ -99,11 +97,9 @@ export function AddDomainForm() {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-row items-center space-x-4">
-                <Button type="submit" disabled={isPending} variant="outline">
-                  Add Domain
-                </Button>
-              </div>
+              <Button type="submit" disabled={isPending} variant="outline">
+                Add Domain
+              </Button>
             </form>
           </Form>
         </CardContent>

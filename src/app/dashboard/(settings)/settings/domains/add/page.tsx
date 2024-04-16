@@ -11,9 +11,5 @@ export default async function AddDomain() {
     redirect("/dashboard/settings");
   }
 
-  return (
-    <div className="container">
-      <AddDomainForm />
-    </div>
-  );
+  return <AddDomainForm />;
 }

@@ -85,7 +85,7 @@ export const columns: ColumnDef<domains>[] = [
 
       return (
         <Button variant="ghost" className="h-8 w-8 p-0" asChild>
-          <Link href={`/dashboard/domains/action/${domainId}`}>
+          <Link href={`/dashboard/settings/domains/action/${domainId}`}>
             <span className="sr-only">Domain Actions (Go)</span>
             <ArrowRight className="h-4 w-4" />
           </Link>

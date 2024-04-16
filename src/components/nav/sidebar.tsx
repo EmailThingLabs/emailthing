@@ -14,23 +14,19 @@ export default function Sidebar() {
   const linkClass =
     "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary";
 
+  const isActive = (path: string, exact = false) => {
+    return exact
+      ? pathname === path
+      : pathname === path || pathname.startsWith(`${path}/`);
+  };
   return (
     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
       <Link
         href="/dashboard"
-        className={pathname === "/dashboard" ? activeLinkClass : linkClass}
+        className={isActive("/dashboard", true) ? activeLinkClass : linkClass}
       >
         <Home className="h-4 w-4" />
         Home{" "}
-      </Link>
-      <Link
-        href="/dashboard/domains"
-        className={
-          pathname === "/dashboard/domains" ? activeLinkClass : linkClass
-        }
-      >
-        <AtSign className="h-4 w-4" />
-        Domains{" "}
       </Link>
       <Link
         href="/dashboard/audiences"
@@ -44,7 +40,7 @@ export default function Sidebar() {
       <Link
         href="/dashboard/campaigns"
         className={
-          pathname === "/dashboard/campaigns" ? activeLinkClass : linkClass
+          isActive("/dashboard/campaigns") ? activeLinkClass : linkClass
         }
       >
         <Send className="h-4 w-4" />
@@ -53,11 +49,11 @@ export default function Sidebar() {
       <Link
         href="/dashboard/settings"
         className={
-          pathname === "/dashboard/settings" ? activeLinkClass : linkClass
+          isActive("/dashboard/settings") ? activeLinkClass : linkClass
         }
       >
         <Settings className="h-4 w-4" />
-        Organization Settings
+        Setup
       </Link>
     </nav>
   );
