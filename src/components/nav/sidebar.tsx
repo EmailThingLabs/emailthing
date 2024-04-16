@@ -47,10 +47,8 @@ export default function Sidebar() {
         Campaign
       </Link>
       <Link
-        href="/dashboard/settings"
-        className={
-          isActive("/dashboard/settings") ? activeLinkClass : linkClass
-        }
+        href="/dashboard/setup/org"
+        className={isActive("/dashboard/setup") ? activeLinkClass : linkClass}
       >
         <Settings className="h-4 w-4" />
         Setup

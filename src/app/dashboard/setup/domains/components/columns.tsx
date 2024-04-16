@@ -84,10 +84,9 @@ export const columns: ColumnDef<domains>[] = [
       const domainId = row.original.id;
 
       return (
-        <Button variant="ghost" className="h-8 w-8 p-0" asChild>
-          <Link href={`/dashboard/settings/domains/action/${domainId}`}>
-            <span className="sr-only">Domain Actions (Go)</span>
-            <ArrowRight className="h-4 w-4" />
+        <Button variant="ghost" className="px-0 hover:bg-transparent" asChild>
+          <Link href={`/dashboard/setup/domains/action/${domainId}`}>
+            <Badge>Verify</Badge>
           </Link>
         </Button>
       );

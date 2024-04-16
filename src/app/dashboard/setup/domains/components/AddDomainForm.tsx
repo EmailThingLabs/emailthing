@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { api } from "@/trpc/react";
@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { revalidatePath } from "next/cache";
 import {
   Form,
   FormControl,
@@ -19,13 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const formSchema = z.object({
   domain: z.string(),
@@ -53,7 +46,7 @@ export function AddDomainForm() {
       toast.success("Domain added", {
         description: "New domain successfully added.",
       });
-      router.push("/dashboard/settings/domains");
+      router.push("/dashboard/setup/domains");
     }
 
     if (isError) {
@@ -66,15 +59,9 @@ export function AddDomainForm() {
   return (
     <div className="container">
       <Card>
-        <CardHeader>
-          <CardTitle>Domain Setup</CardTitle>
-          <CardDescription>
-            Add a domain to your account to start sending emails.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="py-4">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="domain"
@@ -97,7 +84,7 @@ export function AddDomainForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isPending} variant="outline">
+              <Button type="submit" disabled={isPending}>
                 Add Domain
               </Button>
             </form>

@@ -164,7 +164,7 @@ export const domainRouter = createTRPCRouter({
         const mxRecords = await resolveMx(domain.domain);
         const hasCorrectMX = mxRecords.some(
           (record) =>
-            record.exchange === `feedback-smtp.${region}.amazonses.com`,
+            record.exchange === `feedback-smtp.${region.region}.amazonses.com`,
         );
 
         const spfRecords = await resolveTxt(domain.domain);
@@ -173,6 +173,8 @@ export const domainRouter = createTRPCRouter({
         );
 
         const isVerified = hasCorrectDMARC && hasCorrectMX && hasCorrectSPF;
+
+        console.log("isVerified", isVerified);
 
         if (isVerified) {
           await ctx.db
