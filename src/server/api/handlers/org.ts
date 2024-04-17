@@ -6,10 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export const orgRouter = createTRPCRouter({
   isOrgSetup: protectedProcedure.query(async ({ ctx }) => {
-    if (!ctx.session.user || !ctx.session.user.id) {
-      throw new Error("User not found or user ID missing in session context");
-    }
-
     if (!ctx.session.user.orgId) {
       return {
         setup: false,
@@ -24,10 +20,6 @@ export const orgRouter = createTRPCRouter({
   setupOrg: protectedProcedure
     .input(z.object({ name: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.session.user || !ctx.session.user.id) {
-        throw new Error("User not found or user ID missing in session context");
-      }
-
       try {
         const org = await ctx.db
           .insert(organizations)

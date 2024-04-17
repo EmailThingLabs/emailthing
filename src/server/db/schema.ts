@@ -14,6 +14,8 @@ export const organizations = createTable("organization", {
   id: text("id", { length: 255 }).notNull().primaryKey(),
   name: text("name", { length: 255 }).notNull(),
   domain: text("domain", { length: 255 }),
+
+  // move to domains
   smtp_username: text("smtp_username", { length: 255 }),
   smtp_password: text("smtp_password", { length: 255 }),
   region: text("region", { length: 255 }),
@@ -22,14 +24,55 @@ export const organizations = createTable("organization", {
 export const domains = createTable("domains", {
   id: text("id", { length: 255 }).notNull().primaryKey(),
   domain: text("domain", { length: 255 }).notNull(),
-  organizationId: text("organizationId", { length: 255 }).notNull(),
   status: text("status", { length: 255 }).notNull(),
+
+  organizationId: text("organizationId", { length: 255 }).notNull(),
 });
 
 export const domainsRelations = relations(domains, ({ one }) => ({
   organization: one(organizations, {
     fields: [domains.organizationId],
     references: [organizations.id],
+  }),
+}));
+
+export const audiences = createTable("audiences", {
+  id: text("id", { length: 255 }).notNull().primaryKey(),
+  title: text("title", { length: 255 }).notNull(),
+  organizationId: text("organizationId", { length: 255 }).references(
+    () => organizations.id,
+  ),
+});
+
+export const audiencesRelations = relations(audiences, ({ one }) => ({
+  organization: one(organizations, {
+    fields: [audiences.organizationId],
+    references: [organizations.id],
+  }),
+}));
+
+export const contacts = createTable("contacts", {
+  email: text("email", { length: 255 }).notNull().primaryKey(),
+
+  audienceId: text("audienceId", { length: 255 })
+    .references(() => audiences.id)
+    .notNull(),
+
+  firstName: text("fistName", { length: 255 }).default(""),
+  lastName: text("lastName", { length: 255 }).default(""),
+  fullName: text("lastName", { length: 255 }).default(""),
+
+  status: text("text", {
+    enum: ["active", "pending", "unsubscribed"],
+  })
+    .notNull()
+    .default("active"),
+});
+
+export const contactsRelations = relations(contacts, ({ one }) => ({
+  audience: one(audiences, {
+    fields: [contacts.audienceId],
+    references: [audiences.id],
   }),
 }));
 
