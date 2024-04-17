@@ -1,19 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/ui/icons";
 import { getServerAuthSession } from "@/server/auth";
-import { buttonVariants } from "@/components/ui/button";
 import { OnboardingForm } from "./components/OnboardingForm";
-import { cn } from "@/lib/utils";
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderHeading,
-  PageActions,
-} from "@/components/nav/page-header";
 
 export default async function Onboarding() {
   const session = await getServerAuthSession();
