@@ -1,10 +1,6 @@
 import { z } from "zod";
-import { eq, and } from "drizzle-orm";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { eq } from "drizzle-orm";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { audiences, contacts } from "@/server/db/schema";
 import { v4 as uuidv4 } from "uuid";
 
@@ -68,6 +64,29 @@ export const audiencesRouter = createTRPCRouter({
         throw new Error("Failed to add a contact to an audience");
       }
     }),
+
+  getCurrentOrgAudiences: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user.orgId) {
+      throw new Error("User does not belong to an organization");
+    }
+
+    try {
+      const orgAudiences = await ctx.db.query.audiences
+        .findMany({
+          columns: {
+            id: true,
+            title: true,
+            organizationId: true,
+          },
+          where: eq(audiences.organizationId, ctx.session.user.orgId),
+        })
+        .execute();
+
+      return orgAudiences;
+    } catch (error) {
+      throw new Error("Failed to get domains");
+    }
+  }),
 
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))

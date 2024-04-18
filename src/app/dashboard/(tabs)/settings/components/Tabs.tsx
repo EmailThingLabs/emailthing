@@ -13,7 +13,6 @@ export default function SettingsTabs() {
         {[
           { value: "org", label: "Organization" },
           { value: "mail", label: "Mail" },
-          { value: "domains", label: "Domains" },
         ].map((tab) => (
           <TabsTrigger
             key={tab.value}

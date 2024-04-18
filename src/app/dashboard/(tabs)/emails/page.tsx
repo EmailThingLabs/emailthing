@@ -1,3 +1,3 @@
 export default function CampaignsPage() {
-  return <h1>Campaigns</h1>;
+  return <h1>Emails</h1>;
 }

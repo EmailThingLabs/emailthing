@@ -1,7 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 
-import Sidebar from "@/components/nav/sidebar";
+import Sidebar from "./components/sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -24,9 +24,7 @@ export default async function DashboardLayout({
         </div>
       </div>
       <div className="flex flex-col">
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          {children}
-        </main>
+        <main className="p-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

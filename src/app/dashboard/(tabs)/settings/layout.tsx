@@ -1,6 +1,6 @@
 import Container from "@/components/ui/layout/Container";
 import Content from "@/components/ui/layout/Content";
-import Title from "@/components/ui/layout/Title";
+import { Title } from "@/components/ui/layout/Title";
 import Tabs from "./components/Tabs";
 
 export default async function Layout({

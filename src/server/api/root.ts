@@ -3,6 +3,7 @@ import { orgRouter } from "@/server/api/handlers/org";
 import { sesRouter } from "@/server/api/handlers/ses";
 import { domainRouter } from "@/server/api/handlers/domains";
 import { settingsRouter } from "@/server/api/handlers/settings";
+import { audiencesRouter } from "@/server/api/handlers/audiences";
 /**
  * This is the primary router for your server.
  *
@@ -13,6 +14,7 @@ export const appRouter = createTRPCRouter({
   domain: domainRouter,
   ses: sesRouter,
   settings: settingsRouter,
+  audiences: audiencesRouter,
 });
 
 // export type definition of API
