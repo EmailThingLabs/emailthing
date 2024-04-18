@@ -1,8 +1,9 @@
+"use client";
+
 import { api } from "@/trpc/react";
 
-export async function AudiencesTable() {
-  const { data, error, isLoading } =
-    api.audiences.getCurrentOrgAudiences.useQuery();
+export function AudiencesTable() {
+  const data = api.audiences.getCurrentOrnpmgAudiences.useQuery();
 
-  return <div>{isLoading ? "Loading..." : JSON.stringify(data)}</div>;
+  return <div>{JSON.stringify(data)}</div>;
 }
